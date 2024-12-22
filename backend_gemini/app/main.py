@@ -17,7 +17,7 @@ def upload_file(file: UploadFile):
 
 @app.get("/")
 def root():
-    return {"message": "Hello World "}
+    return {"message": "Hello World hehe"}
 
 app.add_middleware(
     CORSMiddleware,
