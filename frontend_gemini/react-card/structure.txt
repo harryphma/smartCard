@@ -1,0 +1,40 @@
+reference structure of the app
+
+src/
+├── assets/
+│   ├── images/          # Store static images (e.g., logo, icons)
+│   ├── styles/          # Global styles like CSS or SASS
+│       ├── index.css    # Entry point for global styles
+│       └── variables.css # Theme or reusable variables
+├── components/
+│   ├── Auth/
+│   │   ├── Login.jsx    # Login page component
+│   │   └── LogoutButton.jsx # Logout button component
+│   ├── Flashcard/
+│   │   ├── DeckList.jsx # Component to render a list of decks
+│   │   ├── DeckCard.jsx # Component for an individual deck card
+│   │   ├── FlashcardModal.jsx # Modal for creating/editing flashcards
+│   │   └── FlashcardItem.jsx # Single flashcard display in a deck
+│   ├── Navbar.jsx       # Navigation bar for the application
+│   └── Footer.jsx       # Footer component (if needed)
+├── contexts/
+│   ├── AuthContext.jsx  # Context for managing authentication state
+│   └── FlashcardContext.jsx # Context for managing flashcard state
+├── hooks/
+│   ├── useAuth.js       # Custom hook for authentication-related logic
+│   └── useFlashcards.js # Custom hook for flashcard-related logic
+├── pages/
+│   ├── Home.jsx         # Main dashboard page for logged-in users
+│   ├── Decks.jsx        # Page showing user-created decks
+│   ├── SharedDecks.jsx  # Page showing shared decks
+│   ├── CreateDeck.jsx   # Page for creating a new deck (optional)
+│   └── NotFound.jsx     # 404 page
+├── services/
+│   ├── api.js           # API client for making requests to the backend
+│   └── authService.js   # Authentication-specific API functions
+├── App.jsx              # Main application component
+├── App.css            
+├── index.css            
+├── main.jsx            
+└── router/
+    └── AppRouter.jsx    # Centralized routing logic for the application
