@@ -104,3 +104,26 @@ Search Bar
   background-color: transparent;
   color: black;
 }
+
+
+/*
+Icon
+*/
+
+.icon-container {
+  position: fixed; /* Fixed position relative to the viewport */
+  top: 20px;       /* Space from the top */
+  right: 20px;     /* Space from the right */
+  cursor: pointer; /* Optional: Change the cursor to a pointer */
+  z-index: 1000;   /* Ensures the icon is on top of other elements */
+
+  background-color: gray; /* Background color of the circle */
+  border-radius: 90%;     /* Makes it a circle */
+  padding: 10px;          /* Space around the icon inside the circle */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+}
+
+.icon-container:hover {
+  color: black; /* Change color on hover */
+  background-color: #f0f0f0;
+}
