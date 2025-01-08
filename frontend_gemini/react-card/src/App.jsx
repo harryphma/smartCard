@@ -1,18 +1,16 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import SearchBar from './components/SearchBar.jsx'
-import Icon from './components/Icon.jsx'
+import TopSection from './components/TopSection.jsx'
+import SideBar from './components/SideBar.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <SearchBar/>
-      <Icon></Icon>
-      <div>
+      <TopSection></TopSection>
+      <SideBar></SideBar>
+      {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -31,7 +29,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   )
 }

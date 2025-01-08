@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -68,35 +68,50 @@ button:focus-visible {
 }
 
 
-/*
-Search Bar
-*/
+/* Top bar container */
+.top-bar {
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Space between icon and search bar */
+  position: fixed; /* Stick to the top */
+  top: 0; /* Space from the top */
+  left: 0;
+  right: 0;
+  padding: 10px 20px; /* Optional: Add padding inside */
+  background-color: #ffffff; /* Optional: Background color */
+  z-index: 1000; /* Ensure it stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
 
-/* Container for the search bar */
-.search-bar {
-  position: relative;
-  display: flex;
+/* Icon container */
+.icon-container {
+  cursor: pointer; /* Pointer cursor for interactivity */
+  background-color: gray; /* Circle background color */
+  border-radius: 50%; /* Make it circular */
+  padding: 10px; /* Space around the icon */
+  display: flex; /* Center the icon inside */
+  justify-content: center;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+}
+
+/* Search bar container */
+.search-bar {
+  display: flex; /* Arrange icon and input field in a row */
+  align-items: center; /* Center items vertically */
+  position: relative;
   width: 100%;
   max-width: 500px; /* Adjust width as needed */
   border: 1px solid #ccc;
   border-radius: 50px;
   background-color: #f9f9f9;
-  padding-left: 40px; /* Add space for the icon */
+  padding-left: 15px;
+  margin: 0 auto;
 }
 
-/* Magnifying glass icon */
-.search-icon {
-  position: absolute;
-  left: 15px; /* Position the icon inside the bar */
-  font-size: 18px; /* Adjust icon size */
-  color: #888;
-  pointer-events: none; /* Prevent clicking on the icon */
-}
-
-/* Input field */
+/* Search input field */
 .search-input {
-  flex: 1;
+  flex: 1; /* Take up remaining space */
   border: none;
   outline: none;
   font-size: 16px;
@@ -105,25 +120,29 @@ Search Bar
   color: black;
 }
 
-
-/*
-Icon
-*/
-
-.icon-container {
-  position: fixed; /* Fixed position relative to the viewport */
-  top: 20px;       /* Space from the top */
-  right: 20px;     /* Space from the right */
-  cursor: pointer; /* Optional: Change the cursor to a pointer */
-  z-index: 1000;   /* Ensures the icon is on top of other elements */
-
-  background-color: gray; /* Background color of the circle */
-  border-radius: 90%;     /* Makes it a circle */
-  padding: 10px;          /* Space around the icon inside the circle */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+/* Magnifying glass icon inside the search bar */
+.search-icon {
+  position: relative; /* Inside the flex container */
+  font-size: 18px; /* Adjust icon size */
+  color: #888;
+  pointer-events: none; /* Prevent clicking on the icon */
 }
 
-.icon-container:hover {
-  color: black; /* Change color on hover */
-  background-color: #f0f0f0;
+
+/*Side bar*/
+.side-bar {
+  position: fixed; /* Fix it to the left of the screen */
+  top: 16px;          /* Start from the top of the screen */
+  left: 0;         /* Align to the left edge */
+  height: 100%;    /* Full height of the viewport */
+  width: 16.6666666%;
+  padding: 2rem;   /* Padding on all sides */
+  background-color: white; /* Optional: Background for better visibility */
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Shadow for aesthetics */
+  color: black;
 }
+
+
+
