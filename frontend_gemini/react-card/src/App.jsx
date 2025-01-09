@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import TopSection from './components/TopSection.jsx'
 import SideBar from './components/SideBar.jsx'
-import NewDeck from './components/NewDeck.jsx'
+import NoDeckSelected from './components/NoDeckSelected.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,7 +11,8 @@ function App() {
     <>
       <TopSection></TopSection>
       <SideBar></SideBar>
-      <NewDeck></NewDeck>
+      <NoDeckSelected></NoDeckSelected>
+      
       {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
