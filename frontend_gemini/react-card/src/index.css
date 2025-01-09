@@ -86,13 +86,19 @@ button:focus-visible {
 /* Icon container */
 .icon-container {
   cursor: pointer; /* Pointer cursor for interactivity */
-  background-color: gray; /* Circle background color */
+  background-color: white; /* Circle background color */
+  color: gray;
   border-radius: 50%; /* Make it circular */
   padding: 10px; /* Space around the icon */
   display: flex; /* Center the icon inside */
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+}
+
+.icon-container:hover {
+  background-color: black; /* Change background color on hover */
+  color: white;
 }
 
 /* Search bar container */
@@ -145,4 +151,9 @@ button:focus-visible {
 }
 
 
+
+/*New Deck*/
+.new-deck{
+  color: black;
+}
 
