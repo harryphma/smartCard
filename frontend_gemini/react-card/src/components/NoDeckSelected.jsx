@@ -29,22 +29,18 @@ export default function NoDeckSelected() {
 
     return (
         <>
-            <Modal ref={modal} buttonCaption = "Generate">
-                <form onSubmit={handleSubmit}>
-                    <h2>User Input</h2>
+            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit}>
+                <h2>User Input</h2>
+                <div>
+                    <label htmlFor="nameDeck">Name of the deck</label>
+                    <input type="text" id="nameDeck" ref={nameDeck} />
                     <div>
-                        <label htmlFor="nameDeck">Name of the deck</label>
-                        <input type="text" id="nameDeck" ref={nameDeck} />
-                        <div>
-                            {!nameIsValid && <p>Please enter name</p>}
-                        </div>
-
-                        <label htmlFor="numberCards">Number of cards</label>
-                        <input type="number" id="numberCards" ref={numberCards} />
+                        {!nameIsValid && <p>Please enter name</p>}
                     </div>
-                    <button type="submit">Generate</button>
-                </form>
 
+                    <label htmlFor="numberCards">Number of cards</label>
+                    <input type="number" id="numberCards" ref={numberCards} />
+                </div>
             </Modal>
             <div className="w-2/3 h-screen flex flex-col justify-center items-center text-center ml-auto">
                 <h2 className="text-xl font-bold text-stone-500 my-4 whitespace-nowrap">Start Learning</h2>
