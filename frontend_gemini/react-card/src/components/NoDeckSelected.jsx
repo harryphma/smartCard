@@ -11,7 +11,7 @@ export default function NoDeckSelected() {
     }
     return (
         <>
-            <Modal ref={modal} buttonCaption = "Close">
+            <Modal ref={modal} buttonCaption = "Generate">
                 <h2 className="text-xl font-bold text-stone-700 my-4" >Invalid Input</h2>
                 <p className="text-stone-600 mb-4">Forgot to enter a value.</p>
                 <p className="text-stone-600 mb-4">Make sure to double check</p>
