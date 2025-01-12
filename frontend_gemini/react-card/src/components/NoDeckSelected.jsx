@@ -16,6 +16,7 @@ export default function NoDeckSelected() {
     
     function handleModal(){
         setIsModalOpen(true);
+        setIsSubmitted(false);
         modal.current.open();
     }
 
@@ -47,9 +48,6 @@ export default function NoDeckSelected() {
     function handleSubmit(event){
         event.preventDefault();
 
-        setNameIsValid(true);
-        setFileIsValid(true);
-
         setIsSubmitted(true);
 
         const enteredNameDeck = nameDeck.current.value;
@@ -57,23 +55,21 @@ export default function NoDeckSelected() {
 
         const enteredNameDeckValid = enteredNameDeck.trim();
 
-        if (enteredNameDeckValid === "") {
-            setNameIsValid(false);
-        } 
-        
-        if (!enteredFileUpload) {
-            setFileIsValid(false);
-        } 
+        const isNameValid = enteredNameDeckValid !== "";
+        const isFileValid = !!enteredFileUpload;
+
+        setNameIsValid(isNameValid);
+        setFileIsValid(isFileValid);
     }
 
-    useEffect(() => {
-        if (!isModalOpen) {
-            // Reset state when modal is closed
-            setIsSubmitted(false);
-            setNameIsValid(true);
-            setFileIsValid(true);
-        }
-    }, [isModalOpen]);
+    // useEffect(() => {
+    //     if (!isModalOpen) {
+    //         // Reset state when modal is closed
+    //         setIsSubmitted(false);
+    //         setNameIsValid(true);
+    //         setFileIsValid(true);
+    //     }
+    // }, [isModalOpen]);
 
     return (
         <>
