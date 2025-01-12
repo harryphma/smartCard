@@ -12,9 +12,20 @@ export default function NoDeckSelected() {
     const [nameIsValid, setNameIsValid] = useState(true);
     const [fileIsValid, setFileIsValid] = useState(true);
     
-
     function handleModal(){
         modal.current.open();
+    }
+
+    function handleClose(){
+        // Reset the refs manually when the modal closes
+        if (nameDeck.current) nameDeck.current.value = ""; // Reset name field
+        if (fileUpload.current) fileUpload.current.value = null; // Reset file field
+        if (numberCards.current) numberCards.current.value = "1"; // Reset to default number of cards
+
+        // Reset validation states
+        setNameIsValid(true);
+        setFileIsValid(true);
+
     }
 
     function handleNameChange(event) {
@@ -40,19 +51,16 @@ export default function NoDeckSelected() {
 
         if (enteredNameDeckValid === "") {
             setNameIsValid(false);
-            
-            
         } 
         
         if (!enteredFileUpload) {
             setFileIsValid(false);
         } 
-
     }
 
     return (
         <>
-            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit}>
+            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onClose={handleClose}>
                 <h2>User Input</h2>
                 <div className="text-left text-black">
                     <div>
