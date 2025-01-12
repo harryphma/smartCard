@@ -5,41 +5,92 @@ import Modal from "./Modal.jsx";
 export default function NoDeckSelected() {
 
     const modal = useRef();
+    const nameDeck = useRef();
+    const numberCards = useRef();
+    const fileUpload = useRef();
+
+    const [nameIsValid, setNameIsValid] = useState(true);
+    const [fileIsValid, setFileIsValid] = useState(true);
+    
 
     function handleModal(){
         modal.current.open();
     }
-    const [nameIsValid, setNameIsValid] = useState(true);
-    const nameDeck = useRef();
-    const numberCards = useRef();
+
+    function handleNameChange(event) {
+        const value = event.target.value.trim();
+        setNameIsValid(value !== "");
+    }
+
+    function handleFileChange(event) {
+        const file = event.target.files[0];
+        setFileIsValid(!!file); 
+    }
 
     function handleSubmit(event){
         event.preventDefault();
 
-        const enteredNameDeck = nameDeck.current.value;
-        const enteredNumberCards = numberCards.current.value;
-
-        if (enteredNameDeck.trim() === ''){
-            setNameIsValid(false);
-            return;
-        }
-
         setNameIsValid(true);
+        setFileIsValid(true);
+
+        const enteredNameDeck = nameDeck.current.value;
+        const enteredFileUpload = fileUpload.current.files[0];
+
+        const enteredNameDeckValid = enteredNameDeck.trim();
+
+        if (enteredNameDeckValid === "") {
+            setNameIsValid(false);
+            
+            
+        } 
+        
+        if (!enteredFileUpload) {
+            setFileIsValid(false);
+        } 
+
     }
 
     return (
         <>
             <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit}>
                 <h2>User Input</h2>
-                <div>
-                    <label htmlFor="nameDeck">Name of the deck</label>
-                    <input type="text" id="nameDeck" ref={nameDeck} />
+                <div className="text-left text-black">
                     <div>
-                        {!nameIsValid && <p>Please enter name</p>}
+                        <label htmlFor="nameDeck">Name of the deck</label>
+                        <input 
+                            type="text" 
+                            id="nameDeck" 
+                            ref={nameDeck} 
+                            className={`bg-white border p-2 rounded-md w-full ${!nameIsValid ? "border-blue-500" : "border-gray-300"}`}
+                            onChange={handleNameChange}
+                        />
+                        <div>
+                            {!nameIsValid && (<p className="text-blue-500">Please enter name</p>)}
+                        </div>
                     </div>
-
                     <label htmlFor="numberCards">Number of cards</label>
-                    <input type="number" id="numberCards" ref={numberCards} />
+                    <select id="numberCards" ref={numberCards} className="bg-white border border-gray-300 p-2 rounded-md w-full">
+                        {[...Array(10).keys()].map(i => (
+                            <option key={i + 1} value={i + 1}>
+                                {i + 1}
+                            </option>
+                        ))}
+                    </select>
+                    
+                    <div>
+                        <label htmlFor="fileUpload">File Upload</label>
+                        <input 
+                            type="file" 
+                            id="fileUpload" 
+                            accept=".pdf" 
+                            ref={fileUpload} 
+                            className={`bg-white border p-2 rounded-md w-full ${!fileIsValid ? "border-blue-500" : "border-gray-300"}`}
+                            onChange={handleFileChange}
+                        />
+                        <div>
+                            {!fileIsValid && <p className="text-blue-500">Please upload file</p>}
+                        </div>
+                    </div>
                 </div>
             </Modal>
             <div className="w-2/3 h-screen flex flex-col justify-center items-center text-center ml-auto">
