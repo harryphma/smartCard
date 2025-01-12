@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import Button from "./Button.jsx";
 
-const Modal = forwardRef(({buttonCaption, children, onSubmit, onClose, action = () => {}}, ref) => {
+const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action = () => {}}, ref) => {
     const dialog = useRef();
     useImperativeHandle(ref, () => {
         return {
@@ -9,7 +9,6 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onClose, action = 
                 dialog.current.showModal();
             },
             close(){
-                onClose();
                 dialog.current.close();
             }
         }
@@ -20,7 +19,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onClose, action = 
             <form method="dialog" className="mt-4 text-right" onSubmit={onSubmit}>
                 {children}
                 <div className="absolute bottom-4 right-4 flex space-x-4">
-                    <Button onClick={() => dialog.current.close()} className="hover:bg-gray-400 hover:text-blue-500">Cancel</Button>
+                    <Button onClick={() => {dialog.current.close(); onCancel();}} className="hover:bg-gray-400 hover:text-blue-500">Cancel</Button>
                     <Button className="hover:bg-gray-400 hover:text-blue-500">{buttonCaption}</Button>
                 </div>
             </form>

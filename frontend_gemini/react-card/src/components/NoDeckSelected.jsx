@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 
@@ -11,31 +11,37 @@ export default function NoDeckSelected() {
 
     const [nameIsValid, setNameIsValid] = useState(true);
     const [fileIsValid, setFileIsValid] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     
     function handleModal(){
+        setIsModalOpen(true);
         modal.current.open();
     }
 
     function handleClose(){
         // Reset the refs manually when the modal closes
-        if (nameDeck.current) nameDeck.current.value = ""; // Reset name field
-        if (fileUpload.current) fileUpload.current.value = null; // Reset file field
-        if (numberCards.current) numberCards.current.value = "1"; // Reset to default number of cards
+        nameDeck.current.value = ""; // Reset name field
+        fileUpload.current.value = null; // Reset file field
+        numberCards.current.value = "1"; // Reset to default number of cards
 
         // Reset validation states
         setNameIsValid(true);
         setFileIsValid(true);
 
+        setIsModalOpen(false);
+        setIsSubmitted(false);
+
     }
 
     function handleNameChange(event) {
         const value = event.target.value.trim();
-        setNameIsValid(value !== "");
+        setNameIsValid(value !== "" || !isSubmitted);
     }
 
     function handleFileChange(event) {
         const file = event.target.files[0];
-        setFileIsValid(!!file); 
+        setFileIsValid(!!file || !isSubmitted); 
     }
 
     function handleSubmit(event){
@@ -43,6 +49,8 @@ export default function NoDeckSelected() {
 
         setNameIsValid(true);
         setFileIsValid(true);
+
+        setIsSubmitted(true);
 
         const enteredNameDeck = nameDeck.current.value;
         const enteredFileUpload = fileUpload.current.files[0];
@@ -58,9 +66,18 @@ export default function NoDeckSelected() {
         } 
     }
 
+    useEffect(() => {
+        if (!isModalOpen) {
+            // Reset state when modal is closed
+            setIsSubmitted(false);
+            setNameIsValid(true);
+            setFileIsValid(true);
+        }
+    }, [isModalOpen]);
+
     return (
         <>
-            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onClose={handleClose}>
+            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onCancel={handleClose}>
                 <h2>User Input</h2>
                 <div className="text-left text-black">
                     <div>
@@ -73,7 +90,7 @@ export default function NoDeckSelected() {
                             onChange={handleNameChange}
                         />
                         <div>
-                            {!nameIsValid && (<p className="text-blue-500">Please enter name</p>)}
+                            {!nameIsValid && isSubmitted && (<p className="text-blue-500">Please enter name</p>)}
                         </div>
                     </div>
                     <label htmlFor="numberCards">Number of cards</label>
@@ -96,7 +113,7 @@ export default function NoDeckSelected() {
                             onChange={handleFileChange}
                         />
                         <div>
-                            {!fileIsValid && <p className="text-blue-500">Please upload file</p>}
+                            {!fileIsValid && isSubmitted && (<p className="text-blue-500">Please upload file</p>)}
                         </div>
                     </div>
                 </div>
