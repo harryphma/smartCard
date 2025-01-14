@@ -1,8 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import TopSection from './components/TopSection.jsx'
-import SideBar from './components/SideBar.jsx'
-import NoDeckSelected from './components/NoDeckSelected.jsx'
+import { useState } from 'react';
+import './App.css';
+import Deck from './components/Deck.jsx';
+import TopSection from './components/TopSection.jsx';
+import SideBar from './components/SideBar.jsx';
+import NoDeckSelected from './components/NoDeckSelected.jsx';
+
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,14 +18,17 @@ function App() {
   };
 
   let content = <NoDeckSelected></NoDeckSelected>;
+  if (deckState !== null){
+    content = <Deck></Deck>;
+  }
+  
   return (
     <>
       <TopSection></TopSection>
       <SideBar activeDeck={deckState} onSelectDeck={handleSelectDeck}></SideBar>
       {content}
-
     </>
   )
 }
 
-export default App
+export default App;

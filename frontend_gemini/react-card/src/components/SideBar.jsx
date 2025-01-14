@@ -1,5 +1,3 @@
-import Decks from "./Decks";
-
 export default function SideBar({ activeDeck, onSelectDeck }) {
     const deckTypes = ["Your Decks", "Shared Decks", "Deleted Decks"];
     
@@ -7,10 +5,8 @@ export default function SideBar({ activeDeck, onSelectDeck }) {
         <aside className="side-bar h-full flex flex-col">
             <ul className="mt-20 flex flex-col gap-28">
                 {deckTypes.map((deckType, index) => {
-                    // Base classes that are always applied
                     const baseClasses = "px-6 py-4 rounded-md transition duration-300 flex items-center justify-center w-full";
 
-                    
                     // Determine if this deck is active
                     const isActive = activeDeck === index;
                     
