@@ -23,12 +23,12 @@ export default function SideBar({ activeDeck, onSelectDeck }) {
                     return (
                         <li key={index}>
                             {/* Pass the CSS classes correctly */}
-                            <Decks
+                            <button
                                 onClick={() => onSelectDeck(index)}
                                 className={cssClasses}
                             >
                                 {deckType}
-                            </Decks>
+                            </button>
                         </li>
                     );
                 })}
