@@ -1,6 +1,6 @@
-export default function Decks({children}) {
+export default function Decks({children, onClick, className}) {
     return (
-        <button className="text-black bg-white  hover:text-white hover:bg-black px-4 py-2 rounded-md transition duration-300">
+        <button onClick={onClick} className={className}>
             {children}
         </button>
     );
