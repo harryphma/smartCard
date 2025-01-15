@@ -8,7 +8,6 @@ import NoDeckSelected from './components/NoDeckSelected.jsx';
 
 
 function App() {
-  const [count, setCount] = useState(0);
 
   //set state of deck only contain ID for now
   const [deckState, setDeckState] = useState({
@@ -25,7 +24,21 @@ function App() {
     });
   };
 
-  // function handleAddDeck()
+  function handleAddDeck(name){
+    setDeckState(prevState => {
+      const deckId = Math.random();
+      const newDeck = {
+        id: deckId,
+        name: name,
+        type: deckState.selectedDeckType
+      };
+
+      return {
+        ...prevState,
+        decks: [...prevState.decks, newDeck]
+      };
+    })
+  }
 
   let content = <NoDeckSelected></NoDeckSelected>;
   let showButton = false;
@@ -49,3 +62,4 @@ function App() {
 }
 
 export default App;
+

@@ -14,6 +14,7 @@ export default function NoDeckSelected() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     
+    
     function handleModal(){
         setIsModalOpen(true);
         setIsSubmitted(false);
@@ -62,19 +63,9 @@ export default function NoDeckSelected() {
         setFileIsValid(isFileValid);
     }
 
-    // useEffect(() => {
-    //     if (!isModalOpen) {
-    //         // Reset state when modal is closed
-    //         setIsSubmitted(false);
-    //         setNameIsValid(true);
-    //         setFileIsValid(true);
-    //     }
-    // }, [isModalOpen]);
-
     return (
         <>
             <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onCancel={handleClose}>
-                <h2>User Input</h2>
                 <div className="text-left text-black">
                     <div>
                         <label htmlFor="nameDeck">Name of the deck</label>
