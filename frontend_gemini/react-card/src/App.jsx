@@ -11,21 +11,29 @@ function App() {
   const [count, setCount] = useState(0);
 
   //set state of deck only contain ID for now
-  const [deckState, setDeckState] = useState(null);
+  const [deckState, setDeckState] = useState({
+    selectedDeckType: null, //id of the selected deck
+    decks: []
+  });
 
-  function handleSelectDeck(index){
-    setDeckState(index);
+  function handleSelectDeckType(index){
+    setDeckState(prevState => {
+      return {
+        ...prevState,
+        selectedDeckType: index
+      }
+    });
   };
 
   let content = <NoDeckSelected></NoDeckSelected>;
-  if (deckState !== null){
+  if (deckState.selectedDeckType !== null){
     content = <Deck></Deck>;
   }
   
   return (
     <>
       <TopSection></TopSection>
-      <SideBar activeDeck={deckState} onSelectDeck={handleSelectDeck}></SideBar>
+      <SideBar activeDeckType={deckState.selectedDeckType} onSelectDeckType={handleSelectDeckType} ></SideBar>
       {content}
     </>
   )

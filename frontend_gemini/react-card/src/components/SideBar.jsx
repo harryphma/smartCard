@@ -1,4 +1,4 @@
-export default function SideBar({ activeDeck, onSelectDeck }) {
+export default function SideBar({ activeDeckType, onSelectDeckType }) {
     const deckTypes = ["Your Decks", "Shared Decks", "Deleted Decks"];
     
     return (
@@ -8,7 +8,7 @@ export default function SideBar({ activeDeck, onSelectDeck }) {
                     const baseClasses = "px-6 py-4 rounded-md transition duration-300 flex items-center justify-center w-full";
 
                     // Determine if this deck is active
-                    const isActive = activeDeck === index;
+                    const isActive = activeDeckType === index;
                     
                     // Conditional classes based on active state
                     const stateClasses = isActive ? "bg-black text-white" : "text-black bg-white hover:text-white hover:bg-black"; 
@@ -20,7 +20,7 @@ export default function SideBar({ activeDeck, onSelectDeck }) {
                         <li key={index}>
                             {/* Pass the CSS classes correctly */}
                             <button
-                                onClick={() => onSelectDeck(index)}
+                                onClick={() => onSelectDeckType(index)}
                                 className={cssClasses}
                             >
                                 {deckType}
