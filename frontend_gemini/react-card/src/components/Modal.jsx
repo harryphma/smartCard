@@ -30,20 +30,20 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                         <button 
                             type="button" 
                             onClick={() => handleTabChange(0)} 
-                            className={`flex-1 px-4 py-3 text-center transition-colors bg-white text-black
+                            className={`rounded-l-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
                                 ${activeTab === 0 
-                                    ? "border-b-2 border-blue-500 font-bold" 
-                                    : "hover:bg-gray-50"}`}
+                                    ? "border-gray-500 font-bold" 
+                                    : "hover:bg-gray-300"}`}
                         >
                             AI-Generated
                         </button>
                         <button 
                             type="button" 
                             onClick={() => handleTabChange(1)} 
-                            className={`flex-1 px-4 py-3 text-center transition-colors bg-white text-black
+                            className={`rounded-r-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
                                 ${activeTab === 1 
-                                    ? "border-b-2 border-blue-500 font-bold" 
-                                    : "hover:bg-gray-50"}`}
+                                    ? "border-gray-500 font-bold" 
+                                    : "hover:bg-gray-300"}`}
                         >
                             Manually
                         </button>
