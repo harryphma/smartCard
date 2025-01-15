@@ -25,9 +25,18 @@ function App() {
     });
   };
 
+  // function handleAddDeck()
+
   let content = <NoDeckSelected></NoDeckSelected>;
+  let showButton = false;
   if (deckState.selectedDeckType !== null){
-    content = <Deck></Deck>;
+    if (deckState.selectedDeckType === 0){
+      showButton = true;
+    }
+    else{
+      showButton = false;
+    }
+    content = <Deck showButton={showButton}></Deck>;
   }
   
   return (
