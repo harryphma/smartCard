@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import Button from "./Button.jsx";
 
-const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action = () => {}}, ref) => {
+const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action = () => {}, onTabChange, activeTab}, ref) => {
     const dialog = useRef();
 
     
@@ -16,10 +16,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
         }
     });
 
-    const [activeTab, setActiveTab] = useState(0);
-    function handleTabChange(tabIndex) {
-        setActiveTab(tabIndex);
-    }
+    
 
     return (
         <dialog ref={dialog} className="backdrop:bg-stone-900/90 p-0 w-1/2 h-96 rounded-md shadow-md overflow-hidden">
@@ -29,7 +26,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                     <div className="flex w-full border-b border-gray-300">
                         <button 
                             type="button" 
-                            onClick={() => handleTabChange(0)} 
+                            onClick={() => onTabChange(0)} 
                             className={`rounded-l-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
                                 ${activeTab === 0 
                                     ? "border-gray-500 font-bold" 
@@ -39,7 +36,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                         </button>
                         <button 
                             type="button" 
-                            onClick={() => handleTabChange(1)} 
+                            onClick={() => onTabChange(1)} 
                             className={`rounded-r-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
                                 ${activeTab === 1 
                                     ? "border-gray-500 font-bold" 
@@ -66,7 +63,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                     >
                         Cancel
                     </Button>
-                    <Button className="hover:bg-gray-400 hover:text-blue-500">
+                    <Button type="submit" className="hover:bg-gray-400 hover:text-blue-500">
                         {buttonCaption}
                     </Button>
                 </div>

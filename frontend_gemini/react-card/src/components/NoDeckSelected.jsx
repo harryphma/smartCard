@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { act, useRef, useState } from "react";
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 
@@ -13,7 +13,11 @@ export default function NoDeckSelected() {
     const [fileIsValid, setFileIsValid] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    
+    const [activeTab, setActiveTab] = useState(0);
+
+    function handleTabChange(tabIndex) {
+        setActiveTab(tabIndex);
+    }
     
     function handleModal(){
         setIsModalOpen(true);
@@ -63,46 +67,79 @@ export default function NoDeckSelected() {
         setFileIsValid(isFileValid);
     }
 
+    const tabContent = () => {
+        switch (activeTab){
+            case 0:
+                return (
+                    <>
+                        <div>
+                            <label htmlFor="nameDeck">Name of the deck</label>
+                            <input 
+                                type="text" 
+                                id="nameDeck" 
+                                ref={nameDeck} 
+                                className={`bg-white border p-2 rounded-md w-full ${!nameIsValid ? "border-blue-500" : "border-gray-300"}`}
+                                onChange={handleNameChange}
+                            />
+                            <div>
+                                {!nameIsValid && isSubmitted && (<p className="text-blue-500">Please enter name</p>)}
+                            </div>
+                        </div>
+
+                        <div className="mt-4">
+                            <label htmlFor="numberCards">Number of cards</label>
+                            <select id="numberCards" ref={numberCards} className="bg-white border border-gray-300 p-2 rounded-md w-full">
+                                {[...Array(10).keys()].map(i => (
+                                    <option key={i + 1} value={i + 1}>
+                                        {i + 1}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="mt-4">
+                            <label htmlFor="fileUpload">File Upload</label>
+                            <input 
+                                type="file" 
+                                id="fileUpload" 
+                                accept=".pdf" 
+                                ref={fileUpload} 
+                                className={`bg-white border p-2 rounded-md w-full ${!fileIsValid ? "border-blue-500" : "border-gray-300"}`}
+                                onChange={handleFileChange}
+                            />
+                            <div>
+                                {!fileIsValid && isSubmitted && (<p className="text-blue-500">Please upload file</p>)}
+                            </div>
+                        </div>
+                    </>
+                );
+            case 1:
+                return (
+                    <>
+                        <div>
+                            <label htmlFor="nameDeck">Name of the deck</label>
+                            <input 
+                                type="text" 
+                                id="nameDeck" 
+                                ref={nameDeck} 
+                                className={`bg-white border p-2 rounded-md w-full ${!nameIsValid ? "border-blue-500" : "border-gray-300"}`}
+                                onChange={handleNameChange}
+                            />
+                            <div>
+                                {!nameIsValid && isSubmitted && (<p className="text-blue-500">Please enter name</p>)}
+                            </div>
+                        </div>
+                    </>
+                );
+
+        }
+    }
+
     return (
         <>
-            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onCancel={handleClose}>
+            <Modal ref={modal} buttonCaption = "Generate" onSubmit={handleSubmit} onCancel={handleClose} onTabChange={handleTabChange} activeTab={activeTab}>
                 <div className="text-left text-black">
-                    <div>
-                        <label htmlFor="nameDeck">Name of the deck</label>
-                        <input 
-                            type="text" 
-                            id="nameDeck" 
-                            ref={nameDeck} 
-                            className={`bg-white border p-2 rounded-md w-full ${!nameIsValid ? "border-blue-500" : "border-gray-300"}`}
-                            onChange={handleNameChange}
-                        />
-                        <div>
-                            {!nameIsValid && isSubmitted && (<p className="text-blue-500">Please enter name</p>)}
-                        </div>
-                    </div>
-                    <label htmlFor="numberCards">Number of cards</label>
-                    <select id="numberCards" ref={numberCards} className="bg-white border border-gray-300 p-2 rounded-md w-full">
-                        {[...Array(10).keys()].map(i => (
-                            <option key={i + 1} value={i + 1}>
-                                {i + 1}
-                            </option>
-                        ))}
-                    </select>
-                    
-                    <div>
-                        <label htmlFor="fileUpload">File Upload</label>
-                        <input 
-                            type="file" 
-                            id="fileUpload" 
-                            accept=".pdf" 
-                            ref={fileUpload} 
-                            className={`bg-white border p-2 rounded-md w-full ${!fileIsValid ? "border-blue-500" : "border-gray-300"}`}
-                            onChange={handleFileChange}
-                        />
-                        <div>
-                            {!fileIsValid && isSubmitted && (<p className="text-blue-500">Please upload file</p>)}
-                        </div>
-                    </div>
+                    {tabContent()}
                 </div>
             </Modal>
             <div className="w-2/3 h-screen flex flex-col justify-center items-center text-center ml-auto">
