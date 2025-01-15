@@ -1,10 +1,10 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import Button from "./Button.jsx";
 
 const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action = () => {}}, ref) => {
     const dialog = useRef();
 
-    const [activeTab, setActiveTab] = useState(0);
+    
     useImperativeHandle(ref, () => {
         return {
             open() {
@@ -16,6 +16,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
         }
     });
 
+    const [activeTab, setActiveTab] = useState(0);
     function handleTabChange(tabIndex) {
         setActiveTab(tabIndex);
     }
@@ -34,7 +35,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                                     ? "border-b-2 border-blue-500 font-bold" 
                                     : "hover:bg-gray-50"}`}
                         >
-                            Tab 1
+                            AI-Generated
                         </button>
                         <button 
                             type="button" 
@@ -44,7 +45,7 @@ const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action =
                                     ? "border-b-2 border-blue-500 font-bold" 
                                     : "hover:bg-gray-50"}`}
                         >
-                            Tab 2
+                            Manually
                         </button>
                     </div>
                 </div>
