@@ -20,6 +20,10 @@ export default function NoDeckSelected() {
     }
     
     function handleModal(){
+        setNameIsValid(true);
+        setFileIsValid(true);
+        setActiveTab(0);
+
         setIsModalOpen(true);
         setIsSubmitted(false);
         modal.current.open();
@@ -37,6 +41,7 @@ export default function NoDeckSelected() {
 
         setIsModalOpen(false);
         setIsSubmitted(false);
+        
 
     }
 
@@ -55,16 +60,26 @@ export default function NoDeckSelected() {
 
         setIsSubmitted(true);
 
-        const enteredNameDeck = nameDeck.current.value;
-        const enteredFileUpload = fileUpload.current.files[0];
+        if (activeTab === 0){
 
-        const enteredNameDeckValid = enteredNameDeck.trim();
+            const enteredNameDeck = nameDeck.current.value;
+            const enteredFileUpload = fileUpload.current.files[0];
 
-        const isNameValid = enteredNameDeckValid !== "";
-        const isFileValid = !!enteredFileUpload;
+            const enteredNameDeckValid = enteredNameDeck.trim();
 
-        setNameIsValid(isNameValid);
-        setFileIsValid(isFileValid);
+            const isNameValid = enteredNameDeckValid !== "";
+            const isFileValid = !!enteredFileUpload;
+
+            setNameIsValid(isNameValid);
+            setFileIsValid(isFileValid);
+        } else if (activeTab === 1){
+            const enteredNameDeck = nameDeck.current.value;
+            const enteredNameDeckValid = enteredNameDeck.trim();
+
+            const isNameValid = enteredNameDeckValid !== "";
+
+            setNameIsValid(isNameValid);
+        }
     }
 
     const tabContent = () => {
