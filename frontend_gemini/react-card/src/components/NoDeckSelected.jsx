@@ -1,5 +1,4 @@
-import { act, useRef, useState } from "react";
-import Button from "./Button.jsx";
+import { useRef, useState } from "react";
 import Modal from "./Modal.jsx";
 
 export default function NoDeckSelected() {
