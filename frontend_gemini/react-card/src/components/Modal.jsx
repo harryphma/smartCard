@@ -1,7 +1,7 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import Button from "./Button.jsx";
 
-const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, action = () => {}, onTabChange, activeTab}, ref) => {
+const Modal = forwardRef(({buttonCaption, children, onSubmit, onCancel, onTabChange, activeTab}, ref) => {
     const dialog = useRef();
 
     
