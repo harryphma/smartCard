@@ -1,9 +1,10 @@
-// DeckModal.jsx
 import { useRef, useState, useEffect } from "react";
 import Modal from "./Modal.jsx";
+import Button from "./Button.jsx"; // your existing Button component
 
 export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" }) {
     const modalRef = useRef();
+
     const nameDeck = useRef();
     const numberCards = useRef();
     const fileUpload = useRef();
@@ -13,7 +14,7 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
 
-  // Keep the <dialog> open/closed in sync with parent’s isOpen
+    // Show/hide dialog based on isOpen
     useEffect(() => {
         if (!modalRef.current) return;
         if (isOpen) {
@@ -25,17 +26,10 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
 
     function handleTabChange(tabIndex) {
         setActiveTab(tabIndex);
-        // Reset all refs and state whenever user switches tabs
-        if (nameDeck.current) {
-            nameDeck.current.value = "";
-        }
-        if (fileUpload.current) {
-            fileUpload.current.value = null;
-        }
-        if (numberCards.current) {
-            numberCards.current.value = "1";
-        }
-
+        // Reset all fields and validation
+        if (nameDeck.current) nameDeck.current.value = "";
+        if (fileUpload.current) fileUpload.current.value = null;
+        if (numberCards.current) numberCards.current.value = "1";
         setNameIsValid(true);
         setFileIsValid(true);
         setIsSubmitted(false);
@@ -46,11 +40,14 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
         if (nameDeck.current) nameDeck.current.value = "";
         if (fileUpload.current) fileUpload.current.value = null;
         if (numberCards.current) numberCards.current.value = "1";
+
         // Reset validation
         setNameIsValid(true);
         setFileIsValid(true);
         setIsSubmitted(false);
-        // Notify parent
+        setActiveTab(0);
+
+        // Notify parent that we're done
         onClose?.();
     }
 
@@ -69,17 +66,19 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
         setIsSubmitted(true);
 
         if (activeTab === 0) {
-            const enteredNameDeck = nameDeck.current.value.trim();
+        // AI tab
+            const enteredName = nameDeck.current.value.trim();
             const enteredFile = fileUpload.current.files[0];
-            setNameIsValid(enteredNameDeck !== "");
+            setNameIsValid(enteredName !== "");
             setFileIsValid(!!enteredFile);
-        // If desired, do something with the validated data
         } else {
-            const enteredNameDeck = nameDeck.current.value.trim();
-            setNameIsValid(enteredNameDeck !== "");
-        // If desired, do something else for “manual” tab
+        // Manual tab
+            const enteredName = nameDeck.current.value.trim();
+            setNameIsValid(enteredName !== "");
         }
-        // If everything is valid, you could close here or leave it open
+
+        // If everything is valid, do something...
+        // Optionally close the modal here if you want
     }
 
     function renderTabContent() {
@@ -111,9 +110,9 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                                 className="bg-white border border-gray-300 p-2 rounded-md w-full"
                             >
                                 {[...Array(10).keys()].map(i => (
-                                <option key={i + 1} value={i + 1}>
-                                    {i + 1}
-                                </option>
+                                    <option key={i + 1} value={i + 1}>
+                                        {i + 1}
+                                    </option>
                                 ))}
                             </select>
                         </div>
@@ -136,6 +135,7 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                         </div>
                     </>
                 );
+
             case 1:
                 return (
                     <>
@@ -156,24 +156,63 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                         </div>
                     </>
                 );
+
             default:
                 return null;
         }
     }
 
     return (
-        <Modal
-            ref={modalRef}
-            buttonCaption={buttonCaption}
-            onSubmit={handleSubmit}
-            onCancel={handleClose}
-            onTabChange={handleTabChange}
-            activeTab={activeTab}
-        >
-            <div className="text-left text-black">
+        <Modal ref={modalRef} onSubmit={handleSubmit}>
+        {/* Header with tab buttons */}
+            <div className="w-full bg-white">
+                <div className="flex w-full border-b border-gray-300">
+                    <button
+                        type="button"
+                        onClick={() => handleTabChange(0)}
+                        className={`rounded-l-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
+                        ${activeTab === 0 ? "border-gray-500 font-bold" : "hover:bg-gray-300"}
+                        `}
+                    >
+                        AI-Generated
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => handleTabChange(1)}
+                        className={`rounded-r-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
+                        ${activeTab === 1 ? "border-gray-500 font-bold" : "hover:bg-gray-300"}
+                        `}
+                    >
+                        Manually
+                    </button>
+                </div>
+            </div>
+
+        {/* Main content */}
+            <div className="flex-1 p-8 bg-white overflow-y-auto text-left text-black">
                 {renderTabContent()}
+            </div>
+
+        {/* Footer with Cancel and Submit buttons */}
+            <div className="p-4 bg-white border-t border-gray-300 flex justify-end space-x-4">
+                <Button
+                    type="button"
+                    onClick={() => {
+                        // We call handleClose() to reset state,
+                        // then also .close() the dialog on the ref
+                        if (modalRef.current) {
+                        modalRef.current.close();
+                        }
+                        handleClose();
+                    }}
+                    className="hover:bg-gray-400 hover:text-blue-500"
+                >
+                    Cancel
+                </Button>
+                <Button type="submit" className="hover:bg-gray-400 hover:text-blue-500">
+                    {buttonCaption}
+                </Button>
             </div>
         </Modal>
     );
 }
-
