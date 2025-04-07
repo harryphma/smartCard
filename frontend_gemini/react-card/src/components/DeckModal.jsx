@@ -167,7 +167,7 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
         {/* Header with tab buttons */}
             <div className="w-full bg-white">
                 <div className="flex w-full border-b border-gray-300">
-                    <button
+                    <Button
                         type="button"
                         onClick={() => handleTabChange(0)}
                         className={`rounded-l-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
@@ -175,8 +175,8 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                         `}
                     >
                         AI-Generated
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                         type="button"
                         onClick={() => handleTabChange(1)}
                         className={`rounded-r-md flex-1 px-4 py-3 text-center transition-colors bg-white text-black
@@ -184,7 +184,7 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                         `}
                     >
                         Manually
-                    </button>
+                    </Button>
                 </div>
             </div>
 
