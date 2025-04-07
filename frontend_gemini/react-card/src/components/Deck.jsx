@@ -15,6 +15,20 @@ export default function Deck({ showButton = false }) {
 
     function handleTabChange(tabIndex) {
         setActiveTab(tabIndex);
+        // Reset all refs and state whenever the user switches tabs
+        if (nameDeck.current) {
+            nameDeck.current.value = "";
+        }
+        if (fileUpload.current) {
+            fileUpload.current.value = null;
+        }
+        if (numberCards.current) {
+            numberCards.current.value = "1";
+        }
+
+        setNameIsValid(true);
+        setFileIsValid(true);
+        setIsSubmitted(false);
     }
     
     function handleModal(){
