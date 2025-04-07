@@ -7,8 +7,7 @@ import NoDeckSelected from './components/NoDeckSelected.jsx';
 
 
 
-function App() {
-
+function App(){
   //set state of deck only contain ID for now
   const [deckState, setDeckState] = useState({
     selectedDeckType: null, //id of the selected deck
@@ -49,7 +48,11 @@ function App() {
     else{
       showButton = false;
     }
-    content = <Deck showButton={showButton}></Deck>;
+    content = <Deck 
+      showButton={showButton}
+      selectedDeckType={deckState.selectedDeckType}
+      decks={deckState.decks.filter(deck => deck.type === deckState.selectedDeckType)}
+    />;
   }
   
   return (
