@@ -38,16 +38,18 @@ export default function Deck({ showButton = false, selectedDeckType, decks = [],
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {decks.map(deck => (
                         <div 
                             key={deck.id}
-                            className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer"
+                            className="aspect-square bg-black rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center justify-center p-4 cursor-pointer"
                         >
-                            <h3 className="font-semibold text-lg">{deck.name}</h3>
-                            <p className="text-sm text-gray-500 mt-1">
-                                Created: {new Date(deck.id).toLocaleDateString()}
-                            </p>
+                            <div className="text-center">
+                                <h3 className="font-semibold text-lg text-white">{deck.name}</h3>
+                                <p className="text-sm text-gray-300 mt-2">
+                                    Created for testing
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>

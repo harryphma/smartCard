@@ -29,11 +29,12 @@ function App(){
       const newDeck = {
         id: deckId,
         name: name,
-        type: deckState.selectedDeckType
+        type: 0  // Always set type to 0 (Your Decks) when creating a new deck
       };
 
       return {
         ...prevState,
+        selectedDeckType: 0,  // Automatically select "Your Decks" category
         decks: [...prevState.decks, newDeck]
       };
     })
