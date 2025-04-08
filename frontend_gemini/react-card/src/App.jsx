@@ -39,7 +39,7 @@ function App(){
     })
   }
 
-  let content = <NoDeckSelected></NoDeckSelected>;
+  let content = <NoDeckSelected onAddDeck={handleAddDeck}></NoDeckSelected>;
   let showButton = false;
   if (deckState.selectedDeckType !== null){
     if (deckState.selectedDeckType === 0){
@@ -52,6 +52,7 @@ function App(){
       showButton={showButton}
       selectedDeckType={deckState.selectedDeckType}
       decks={deckState.decks.filter(deck => deck.type === deckState.selectedDeckType)}
+      onAddDeck={handleAddDeck}
     />;
   }
   

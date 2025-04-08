@@ -2,7 +2,7 @@ import { useState } from "react";
 import DeckModal from "./DeckModal.jsx";
 import Button from "./Button.jsx";
 
-export default function Deck({ showButton = false, selectedDeckType, decks = [] }) {
+export default function Deck({ showButton = false, selectedDeckType, decks = [], onAddDeck }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     function handleOpenModal() {
@@ -21,6 +21,8 @@ export default function Deck({ showButton = false, selectedDeckType, decks = [] 
                 return "Shared Decks";
             case 2:
                 return "Deleted Decks";
+            default:
+                return "Decks";
         }
     };
 
@@ -63,7 +65,7 @@ export default function Deck({ showButton = false, selectedDeckType, decks = [] 
             <DeckModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                buttonCaption="Generate"
+                onAddDeck={onAddDeck}
             />
         </div>
     );

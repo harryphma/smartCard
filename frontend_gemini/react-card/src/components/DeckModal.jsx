@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import Modal from "./Modal.jsx";
 import Button from "./Button.jsx"; // your existing Button component
 
-export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" }) {
+export default function DeckModal({ isOpen, onClose, onAddDeck }) {
     const modalRef = useRef();
 
     const nameDeck = useRef();
@@ -66,19 +66,26 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
         setIsSubmitted(true);
 
         if (activeTab === 0) {
-        // AI tab
+            // AI tab
             const enteredName = nameDeck.current.value.trim();
             const enteredFile = fileUpload.current.files[0];
             setNameIsValid(enteredName !== "");
             setFileIsValid(!!enteredFile);
         } else {
-        // Manual tab
+            // Manual tab
             const enteredName = nameDeck.current.value.trim();
             setNameIsValid(enteredName !== "");
+            
+            if (enteredName !== "") {
+                // Create new deck
+                onAddDeck?.(enteredName);
+                // Close the modal
+                handleClose();
+                if (modalRef.current) {
+                    modalRef.current.close();
+                }
+            }
         }
-
-        // If everything is valid, do something...
-        // Optionally close the modal here if you want
     }
 
     function renderTabContent() {
@@ -210,7 +217,7 @@ export default function DeckModal({ isOpen, onClose, buttonCaption = "Generate" 
                     Cancel
                 </Button>
                 <Button type="submit" className="hover:bg-gray-400 hover:text-blue-500">
-                    {buttonCaption}
+                    Generate
                 </Button>
             </div>
         </Modal>
