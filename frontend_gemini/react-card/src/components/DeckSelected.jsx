@@ -2,7 +2,7 @@ import { useState } from "react";
 import DeckModal from "./DeckModal.jsx";
 import Button from "./Button.jsx";
 
-export default function Deck({ showButton = false, selectedDeckType, decks = [], onAddDeck }) {
+export default function DeckSelected({ showButton = false, selectedDeckType, decks = [], onAddDeck }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     function handleOpenModal() {

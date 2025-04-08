@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import Deck from './components/Deck.jsx';
 import TopSection from './components/TopSection.jsx';
 import SideBar from './components/SideBar.jsx';
 import NoDeckSelected from './components/NoDeckSelected.jsx';
+import DeckSelected from './components/DeckSelected.jsx';
 
 
 
@@ -49,7 +49,7 @@ function App(){
     else{
       showButton = false;
     }
-    content = <Deck 
+    content = <DeckSelected 
       showButton={showButton}
       selectedDeckType={deckState.selectedDeckType}
       decks={deckState.decks.filter(deck => deck.type === deckState.selectedDeckType)}
