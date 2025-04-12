@@ -5,6 +5,7 @@ import Signup from './components/Signup.jsx';
 // src/auth/AuthApp.jsx
 export default function AuthApp() {
     return (
-        <Signup />
+        <Login />
+        // <Signup />
     );
 }
